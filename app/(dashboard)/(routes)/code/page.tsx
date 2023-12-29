@@ -19,8 +19,11 @@ import Loader from "@/components/Loader";
 import Empty from "@/components/Empty";
 import UserAvatar from "@/components/UserAvatar";
 import AIAvatar from "@/components/AIAvatar";
+import { useProModel } from "@/hooks/use-pro-model";
+import toast from "react-hot-toast";
 
 export default function CodePage() {
+  const proModal = useProModel();
   const router = useRouter();
   const [messages, setMessages] = useState<ChatCompletionMessageParam[]>([]);
   // console.log(messages);
@@ -48,9 +51,14 @@ export default function CodePage() {
 
       form.reset();
     } catch (error: any) {
+      if (error.response.status === 403) {
+        proModal.onOpen();
+      } else {
+        toast("Something went wrong");
+      }
       console.log(error);
     } finally {
-      router.refresh();
+      router.refresh(); // this used here because to update the counter for upgrade from the database
     }
   }
 

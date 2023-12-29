@@ -14,8 +14,11 @@ import { Button } from "@/components/ui/button";
 import Heading from "@/components/Heading";
 import Loader from "@/components/Loader";
 import Empty from "@/components/Empty";
+import { useProModel } from "@/hooks/use-pro-model";
+import toast from "react-hot-toast";
 
 export default function VideoGenerationPage() {
+  const proModal = useProModel();
   const router = useRouter();
   const [video, setVideo] = useState<string>();
 
@@ -35,7 +38,11 @@ export default function VideoGenerationPage() {
       setVideo(response.data[0]);
       form.reset();
     } catch (error: any) {
-      console.log(error);
+      if (error.response.status === 403) {
+        proModal.onOpen();
+      } else {
+        toast("Something went wrong");
+      }
     } finally {
       router.refresh();
     }

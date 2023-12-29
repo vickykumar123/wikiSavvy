@@ -3,52 +3,8 @@
 import { useRouter } from "next/navigation";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import {
-  ArrowRight,
-  Code,
-  ImageIcon,
-  MessageSquare,
-  Music,
-  Video,
-} from "lucide-react";
-
-const tools = [
-  {
-    label: "Conversation",
-    icon: MessageSquare,
-    color: "text-violet-500",
-    bgColor: "bg-violet-500/10",
-    href: "/conversation",
-  },
-  {
-    label: "Music Generatio",
-    icon: Music,
-    color: "text-emerald-500",
-    bgColor: "bg-emerald-500/10",
-    href: "/music",
-  },
-  {
-    label: "Image Generatio",
-    icon: ImageIcon,
-    color: "text-pink-700",
-    bgColor: "bg-pink-700/10",
-    href: "/image",
-  },
-  {
-    label: "Video Generatio",
-    icon: Video,
-    color: "text-orange-700",
-    bgColor: "bg-orange-700/10",
-    href: "/video",
-  },
-  {
-    label: "Code Generatio",
-    icon: Code,
-    color: "text-green-700",
-    bgColor: "bg-green-700/10",
-    href: "/code",
-  },
-];
+import { ArrowRight } from "lucide-react";
+import { tools } from "@/contants";
 
 export default function DashboardPage() {
   const router = useRouter();

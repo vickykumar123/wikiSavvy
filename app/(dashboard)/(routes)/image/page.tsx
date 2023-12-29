@@ -27,8 +27,11 @@ import Heading from "@/components/Heading";
 import Loader from "@/components/Loader";
 import Empty from "@/components/Empty";
 import { Card, CardFooter } from "@/components/ui/card";
+import { useProModel } from "@/hooks/use-pro-model";
+import toast from "react-hot-toast";
 
 export default function ImageGenerationPage() {
+  const proModal = useProModel();
   const router = useRouter();
   const [images, setImages] = useState<string[]>([]);
 
@@ -51,9 +54,13 @@ export default function ImageGenerationPage() {
       setImages(urls);
       form.reset();
     } catch (error: any) {
-      console.log(error);
+      if (error.response.status === 403) {
+        proModal.onOpen();
+      } else {
+        toast("Something went wrong");
+      }
     } finally {
-      router.refresh();
+      router.refresh(); // this used here because to update the counter for upgrade from the database
     }
   }
 

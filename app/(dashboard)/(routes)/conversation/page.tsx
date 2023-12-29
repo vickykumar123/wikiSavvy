@@ -18,8 +18,11 @@ import Loader from "@/components/Loader";
 import Empty from "@/components/Empty";
 import UserAvatar from "@/components/UserAvatar";
 import AIAvatar from "@/components/AIAvatar";
+import { useProModel } from "@/hooks/use-pro-model";
+import toast from "react-hot-toast";
 
 export default function ConversationPage() {
+  const proModal = useProModel();
   const router = useRouter();
   const [messages, setMessages] = useState<ChatCompletionMessageParam[]>([]);
   // console.log(messages);
@@ -47,9 +50,13 @@ export default function ConversationPage() {
 
       form.reset();
     } catch (error: any) {
-      console.log(error);
+      if (error.response.status === 403) {
+        proModal.onOpen();
+      } else {
+        toast("Something went wrong");
+      }
     } finally {
-      router.refresh();
+      router.refresh(); // this used here because to update the counter for upgrade from the database
     }
   }
 

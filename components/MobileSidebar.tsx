@@ -1,21 +1,21 @@
 "use client";
 
-import { Button } from "./ui/button";
 import { Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 import Sidebar from "./Sidebar";
-import { useEffect, useState } from "react";
+import { useMediaQuery } from "react-responsive";
 
-export default function MobileSidebar() {
-  //   const [isMounted, setIsMounted] = useState(false);
+interface MobileSidebarProps {
+  apiLimitCount: number;
+  isPro: boolean;
+}
 
-  //   useEffect(() => {
-  //     setIsMounted(true);
-  //   }, []);
-
-  //   if (!isMounted) {
-  //     return null;
-  //   }
+export default function MobileSidebar({
+  apiLimitCount,
+  isPro = false,
+}: MobileSidebarProps) {
+  const isMobile = useMediaQuery({ query: `(max-width: 800px)` });
+  if (!isMobile) return;
   return (
     <Sheet>
       <SheetTrigger>
@@ -24,7 +24,7 @@ export default function MobileSidebar() {
         </span>
       </SheetTrigger>
       <SheetContent side="left" className="p-0">
-        <Sidebar />
+        <Sidebar isPro={isPro} apiLimitCount={apiLimitCount} />
       </SheetContent>
     </Sheet>
   );
