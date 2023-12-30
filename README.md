@@ -7,6 +7,10 @@ wikiSavvy is a powerful AI-based SaaS application built on Next.js 14 with TypeS
 
 #### Deployed on Vercel, check out the app at https://wiki-savvy.vercel.app/ 
 
+### Demo Login Cred
+Email : test@test.com
+Pass : test##54321
+
 ## Features
 
 - **AI Generation:** Utilize OpenAI and Replicate for code, video, music, and image generation.
